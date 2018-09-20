@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Task1 {
     public static void main(String[] args) {
-       task1();
-        //task2();
+        //task1();
+        task2();
     }
 
     private static void f(int x) throws Exception {
@@ -23,14 +23,15 @@ public class Task1 {
         }
     }
 
-    /*private static int readInt(String str) throws Exception {
+    private static int readInt(String str) {
         Scanner s = new Scanner(System.in);
         System.out.println(str);
+        int x;
         try {
-            int x = (Integer.parseInt(s.nextLine()));
+            x = (Integer.parseInt(s.nextLine()));
         } catch (Exception e) {
             System.out.println("это не число. попробуйте еще раз");
-            readInt(str);
+            x = readInt(str);
         }
         return x;
     }
@@ -39,7 +40,7 @@ public class Task1 {
         int x = (readInt("введите x"));
         int y = (readInt("введите y"));
         System.out.println(x + y);
-    }*/
+    }
 
     /*        Задача2
     метод
