@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Task1 {
     public static void main(String[] args) {
-        task1();
+       task1();
         //task2();
     }
 
@@ -23,14 +23,14 @@ public class Task1 {
         }
     }
 
-    private static int readInt(String str) {
+    /*private static int readInt(String str) throws Exception {
         Scanner s = new Scanner(System.in);
         System.out.println(str);
-        int x = 0;
         try {
-            x = (Integer.parseInt(s.nextLine()));
+            int x = (Integer.parseInt(s.nextLine()));
         } catch (Exception e) {
-            System.out.println("попробуйте еще раз");
+            System.out.println("это не число. попробуйте еще раз");
+            readInt(str);
         }
         return x;
     }
@@ -39,14 +39,14 @@ public class Task1 {
         int x = (readInt("введите x"));
         int y = (readInt("введите y"));
         System.out.println(x + y);
-    }
+    }*/
 
     /*        Задача2
     метод
     Integer.parseInt("242") - если не число, то исключенеие генерируется
     строку в число
-    надо функцию int readInt(String message)
 
+    надо функцию int readInt(String message)
     использование
     int x = (readInt("введите x"));
     int y = -------//-----------
