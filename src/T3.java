@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.nio.file.*;
 import java.util.Arrays;
 import java.util.List;
@@ -24,18 +25,22 @@ public class T3 {
                 Files.move(old, updated, StandardCopyOption.REPLACE_EXISTING);
                 System.out.println(fileName + " Успешно переименован в " + newFileName);
             }
-        } catch (Exception e) {
-            System.out.println("Ошибка");
-            System.out.println("UnsupportedOperationException – if the array contains a copy option that is not supported, " +
-                            "java.nio.file.FileAlreadyExistsException – if the target file exists but cannot be replaced because the REPLACE_EXISTING option is not specified (optional specific exception)" +
-                            "java.nio.file.DirectoryNotEmptyException – the REPLACE_EXISTING option is specified but the file cannot be replaced because it is a non-empty directory (optional specific exception)" +
-                            "java.nio.file.AtomicMoveNotSupportedException – if the options array contains the ATOMIC_MOVE option but the file cannot be moved as an atomic file system operation." +
-                            "java.io.IOException – if an I/O error occurs" +
-                            "SecurityException – In the case of the default provider, and a security manager is installed, the checkWrite method is invoked to check write access to both the source and target file);");
+        } catch (IOException e) {
+            System.out.println("Не удалось переименовать Файл, ошибка");
+            System.out.println("Что-то не так с " + e.getMessage());
         }
 
         /*
-            Для каждого файла выведите, удалось ли его переименовать, а если нет, то что именно пошло не так.
+            "UnsupportedOperationException – if the array contains a copy option that is not supported, - что-то не то в массиве" +
+            "java.nio.file.DirectoryNotEmptyException – the REPLACE_EXISTING option is specified but the file
+                                        cannot be replaced because it is a non-empty directory (optional specific exception)" +
+                                        " - папка не пуста, поэтому нельзя переместить файл?" +
+            "java.io.IOException – if an I/O error occurs - ошибка в вводе/выводе");
+
+
+            Для каждого файла выведите, удалось ли его переименовать, а если нет, то
+
+            что именно пошло не так.
             Проследите, чтобы не выводилось лишней информации об ошибках наподобие содержимого стека.
 
          */
