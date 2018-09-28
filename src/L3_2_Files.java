@@ -33,5 +33,10 @@ public class L3_2_Files {
     (byte[])  -> newString(byte[], кодировка -> (String)
     (byte[])  <- String.getBytes(кодировка) <- (byte[], кодировка <- (String)
 
+
+    //для возвращения без номеров
+    //Path old = Paths.get("t3_katalog\\\\" + String.valueOf(fileNames.indexOf(fileName) + 1) + " " + fileName);
+    //Path updated = Paths.get("t3_katalog\\\\" + fileName);
+
      */
 }
