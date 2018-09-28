@@ -92,7 +92,7 @@ public class L3_1_Files {
 
         что умет Output Stream?
             - write (byte b)
-            - write (bute[] buf)
+            - write (byte[] buf)
             - close()
             - flush() - протолкнуть, чтобы все, что написали, заставили протолкнуть на устройство
                     [прог] -> [OS](тут все копится, а потом отправляется дальше) -> [диск]
@@ -103,11 +103,12 @@ public class L3_1_Files {
         FileOutputStream <- OS, связанный с файлом
         FileReader <- R, связанный с файлом
         FileWriter <- W, связанный с файлом - не рекомендуется, тк нельзя указать кодировку
+
         OutputStreamWriter
         InputStreanReader <- превращают OS в Writer, IS в Reader
 
         прочитать текст из файла
-        try (Reader in = ewInputStreamReader(newFileInputStream("a.txt"), "utf-8"))
+        try (Reader in = new InputStreamReader(new FileInputStream("a.txt"), "utf-8"))
 
         Buffered -> InpStream       обертка - сохранит данные в промежуточном буфере
                  -> OutputStream    и будет читать оттуда. для производительности
