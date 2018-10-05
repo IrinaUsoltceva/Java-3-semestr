@@ -46,9 +46,7 @@ public class T5_kontakti extends Application {
         //И еще можно сразу указать внешний отступ (padding из css)
         HBox root = new HBox();
 
-        HBox textAre = new HBox();
         TextArea ta1 = new TextArea("TextArea");
-        textAre.getChildren().addAll(ta1);
 
         HBox textAndButton = new HBox();
         Button b1 = new Button("Button");
@@ -56,7 +54,7 @@ public class T5_kontakti extends Application {
         textAndButton.getChildren().addAll(tf1, b1);
 
         VBox left = new VBox();
-        left.getChildren().addAll(textAre, textAndButton);
+        left.getChildren().addAll(ta1, textAndButton);
 
         Label l1 = new Label("Label");
         javafx.scene.control.ListView<String> lv1 = new javafx.scene.control.ListView<>();
@@ -67,6 +65,8 @@ public class T5_kontakti extends Application {
 
         VBox.setVgrow(lv1, Priority.ALWAYS);
         VBox.setVgrow(ta1, Priority.ALWAYS);
+
+
 
         /*root.setSpacing(10); //можно указать отступ позже
 
