@@ -7,15 +7,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-//НИЧЕГО НЕ ИМПОРТИРОВАТЬ ИЗ vom.sun
-//все может поломаться после обновления
+import javax.swing.text.html.ListView;
 
-public class AppExample extends Application {
+public class T5_kontakti extends Application {
     //абстрактный класс реализует не все
     //ругается, что нет start(Stage), нужно создать
 
@@ -45,12 +46,35 @@ public class AppExample extends Application {
         //И еще можно сразу указать внешний отступ (padding из css)
         HBox root = new HBox();
 
-        root.setSpacing(10); //можно указать отступ позже
+        HBox textAre = new HBox();
+        TextArea ta1 = new TextArea("TextArea");
+        textAre.getChildren().addAll(ta1);
 
-        //шмпортируем жава.фх
+        HBox textAndButton = new HBox();
+        Button b1 = new Button("Button");
+        TextField tf1 = new TextField("TextField");
+        textAndButton.getChildren().addAll(tf1, b1);
+
+        VBox left = new VBox();
+        left.getChildren().addAll(textAre, textAndButton);
+
+        Label l1 = new Label("Label");
+        javafx.scene.control.ListView<String> lv1 = new javafx.scene.control.ListView<>();
+        VBox right = new VBox();
+        right.getChildren().addAll(l1, lv1);
+
+        root.getChildren().addAll(left, right);
+
+        VBox.setVgrow(lv1, Priority.ALWAYS);
+        VBox.setVgrow(ta1, Priority.ALWAYS);
+
+        /*root.setSpacing(10); //можно указать отступ позже
+
+        //импортируем жава.фх
         Button b1 = new Button("Hello");
         Label l1 = new Label("Just a text");
         TextField tf1 = new TextField("enter something");
+
 
         //чтобы добавить детей, обращаемся к списку детей
         //и пользуемся методом, который позволяет добавить в список
@@ -71,14 +95,13 @@ public class AppExample extends Application {
         //HBox - означает, что констрейнт понимают все HBox-ы
         //HGrow - название constraint, это тот, который говорит, растягивать
         //        ли элемент. Always - всегда
-
         HBox.setHgrow(tf1, Priority.ALWAYS);
         HBox.setMargin(b1, new Insets(8));
 
         //а это уже не constraint, а свойства HBox,
         //все элементы должны располагаться снизу по центру
+        root.setAlignment(Pos.BOTTOM_CENTER);*/
 
-        root.setAlignment(Pos.BOTTOM_CENTER);
         return root;
     }
 
