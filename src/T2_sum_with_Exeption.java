@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class T2 {
+public class T2_sum_with_Exeption {
     public static void main(String[] args) {
         //task2_1();
         task2_2();

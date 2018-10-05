@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class T4 {
+public class T4_File_reader_writer {
     public static void main(String[] args) {
         String text = "Четыре чёрненьких чумазеньких чертёнка чертили чёрными чернилами чертёж чрезвычайно чётко";
         task4_2(text);

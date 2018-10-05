@@ -1,4 +1,4 @@
-public class T1 {
+public class T1_Exeption {
     public static void main(String[] args) {
         task1();
     }

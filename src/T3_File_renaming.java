@@ -3,7 +3,7 @@ import java.nio.file.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class T3 {
+public class T3_File_renaming {
 
     private static final String CATALOG_NAME = "t3_katalog";
 
