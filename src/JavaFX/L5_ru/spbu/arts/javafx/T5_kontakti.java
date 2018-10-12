@@ -46,47 +46,30 @@ public class T5_kontakti extends Application {
         //И еще можно сразу указать внешний отступ (padding из css)
         HBox root = new HBox();
 
-        TextArea ta1 = new TextArea("TextArea");
+        TextArea dialog = new TextArea("dialog");
 
         HBox textAndButton = new HBox();
-        Button b1 = new Button("Button");
-        TextField tf1 = new TextField("TextField");
-        textAndButton.getChildren().addAll(tf1, b1);
+        Button send = new Button("send");
+        TextField message = new TextField("message");
+        textAndButton.getChildren().addAll(message, send);
 
         VBox left = new VBox();
-        left.getChildren().addAll(ta1, textAndButton);
+        left.getChildren().addAll(dialog, textAndButton);
 
-        Label l1 = new Label("Label");
-        javafx.scene.control.ListView<String> lv1 = new javafx.scene.control.ListView<>();
+        Label kontakti = new Label("kontakti");
+        javafx.scene.control.ListView<String> kontaktiList = new javafx.scene.control.ListView<>();
         VBox right = new VBox();
-        right.getChildren().addAll(l1, lv1);
+        right.getChildren().addAll(kontakti, kontaktiList);
 
         root.getChildren().addAll(left, right);
 
-        VBox.setVgrow(lv1, Priority.ALWAYS);
-        VBox.setVgrow(ta1, Priority.ALWAYS);
+        VBox.setVgrow(kontaktiList, Priority.ALWAYS);
+        VBox.setVgrow(dialog, Priority.ALWAYS);
 
 
 
-        /*root.setSpacing(10); //можно указать отступ позже
 
-        //импортируем жава.фх
-        Button b1 = new Button("Hello");
-        Label l1 = new Label("Just a text");
-        TextField tf1 = new TextField("enter something");
-
-
-        //чтобы добавить детей, обращаемся к списку детей
-        //и пользуемся методом, который позволяет добавить в список
-        //сразу несколько элементов. Можно использовать метод add,
-        //но он добавит один элемент
-        //В JavaFx чуть-чуть другие коллекции, не такие, как мы привыкли
-        //Коллекции в JavaFX позволяют следить за своим содержимым, т.е.
-        //root сразу поймет, что ему добавили детей и перерисуется
-        root.getChildren().addAll(b1, l1, tf1);
-
-        //еще можно при создании указать детей
-        //HBox root1 = new Hbox(b1, l1, tf1);
+        /*
 
         //давайте теперь добавим Constraint для элементов
         //было бы естественно сделать так
