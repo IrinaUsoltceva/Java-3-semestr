@@ -4,7 +4,10 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 
@@ -47,6 +50,22 @@ public class L6_GridPane extends Application {
         //для contacts дополнительно указали количество строк и столбцов
 
         //заставим элементы растягиваться. нужно указать, как растягиваются строки и столбцы.
+
+        //нужно указать, как растягиваются строки и столбцы.
+        //будем растягивать столбец 0 и строку 1
+
+        ColumnConstraints cc0 = new ColumnConstraints();
+        cc0.setHgrow(Priority.ALWAYS);
+        //HGrow аналогичен HGrow для HBox
+        //есть много других полезных constraint в cc0
+
+        RowConstraints rc0 = new RowConstraints();
+        RowConstraints rc1 = new RowConstraints();
+        rc1.setVgrow(Priority.ALWAYS);
+
+        //column/riw constraints - изначально пустые списки
+        root.getColumnConstraints().add(cc0);
+        root.getRowConstraints().addAll(rc0, rc1);
 
         return root;
     }
