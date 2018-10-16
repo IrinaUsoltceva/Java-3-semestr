@@ -1,31 +1,66 @@
 import java.io.*;
+import java.nio.file.*;
 
 public class T4_File_reader_writer {
     public static void main(String[] args) {
         String text = "Четыре чёрненьких чумазеньких чертёнка чертили чёрными чернилами чертёж чрезвычайно чётко";
         task4_2(text);
+        task4_3();
     }
 
     private static void task4_2(String text) {
-        /*Врайтер - символы
-        файлОутпустрим - байты
-        следовательно, нужно завести врайтер, загнать туда текст и перевести
-        при помощи кодировки в оутпут
-
-        OutputStreamWriter превратит ОС в врайтера
-
-        try (Reader in =
-            new InputStreamReader(
-            new FileInputStream("a.txt"), "utf-8"
-            ))
-        */
-
-        try {
-            new FileOutputStream("a.txt");
-        } catch (FileNotFoundException e) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("text_utf8.txt"), "UTF8"))) {
+            bw.write(text);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("text_win1251.txt"), "windows-1251"))) {
+            bw.write(text);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("text_koi8r.txt"), "KOI8_R"))) {
+            bw.write(text);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void task4_3() {
+
+    //utf8
+        try {
+            Path pathText_utf8 = Paths.get("text_utf8.txt");
+            //text_utf8.
+            byte[] text_utf8 = {-48, -89, -48, -75, -47, -126, -47,
+                    -117,
+                    -47,
+                    -128,
+                    -48,
+                    -75,
+                    32,
+                            -47,
+                            -121,
+                            -47};
+            //byte[] text_utf8 = Files.readAllBytes(pathText_utf8);
+            for (int i = 0; i < text_utf8.length; i++) {
+                System.out.println(text_utf8[i]);
+            }
+
+            //доп кодом
+            Files.write(Paths.get("text_utf8_b.bin"), text_utf8);
+            //в число
+
+            //16ричное
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*4.3
