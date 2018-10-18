@@ -1,4 +1,8 @@
 public class L3_2_Files {
+    public static void main(String[] args) {
+        String text = "1234.txt";
+        System.out.print(text.substring(0, text.length() - 4));
+    }
     /*
     В java.io
     Класс File - путь на диске

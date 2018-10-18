@@ -6,6 +6,7 @@ public class T4_File_reader_writer {
         String text = "Четыре чёрненьких чумазеньких чертёнка чертили чёрными чернилами чертёж чрезвычайно чётко";
         task4_2(text);
         task4_3();
+        task4_4();
     }
 
     private static void writeInKodirovka (String file, String kodirovka, String text) {
@@ -24,74 +25,52 @@ public class T4_File_reader_writer {
     }
 
     private static void reWriteInThreeBin(String fileIn, String kodirovka) {
-        String fileName =
+        String fileName = fileIn.substring(0, fileIn.length() - 4);
         try (
-            Writer outb = new OutputStreamWriter(new FileOutputStream("text_utf8_b.bin"),"UTF8");
-            Writer outbb = new OutputStreamWriter(new FileOutputStream("text_utf8_bb.bin"),"UTF8");
-            Writer outbb16 = new OutputStreamWriter(new FileOutputStream("text_utf8_bb16.bin"),"UTF8")
+            Writer outb = new OutputStreamWriter(new FileOutputStream(fileName + "_b.bin"), kodirovka);
+            Writer outbb = new OutputStreamWriter(new FileOutputStream(fileName + "_bb.bin"), kodirovka);
+            Writer outbb16 = new OutputStreamWriter(new FileOutputStream(fileName + "_bb16.bin"), kodirovka)
         ) {
-            Path pathText_utf8 = Paths.get("text_utf8.txt");
-            byte[] text_utf8 = Files.readAllBytes(pathText_utf8);
+            Path pathText = Paths.get(fileIn);
+            byte[] text = Files.readAllBytes(pathText);
 
-            for (byte aText_utf8 : text_utf8) {
-                int bb = aText_utf8 < 0 ? 256 + aText_utf8 : aText_utf8;
-                String bb16 = Integer.toString(bb, 16);
-                out.write(bb16 + " ");
+            for (byte word : text) {
+                String b = Byte.toString(word);
+                outb.write(b + " ");
+
+                int intbb = word < 0 ? 256 + word : word;
+                String bb = Integer.toString(intbb);
+                outbb.write(bb + " ");
+
+                String bb16 = Integer.toString(intbb, 16);
+                outbb16.write(bb16 + " ");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     private static void task4_3() {
+        reWriteInThreeBin("text_utf8.txt", "UTF8");
+        reWriteInThreeBin("text_win1251.txt", "windows-1251");
+        reWriteInThreeBin("text_koi8r.txt", "KOI8_R");
+    }
 
-    //utf8
-        try (Writer out = new OutputStreamWriter(new FileOutputStream("text_utf8.bin"),"UTF8")) {
-            Path pathText_utf8 = Paths.get("text_utf8.txt");
-            byte[] text_utf8 = Files.readAllBytes(pathText_utf8);
+    private static void task4_4() {
+        try (Writer out = new OutputStreamWriter(new FileOutputStream("text_koi7r.txt"),"KOI8_R")) {
+            Path pathText = Paths.get("text_koi8r.txt");
+            byte[] text = Files.readAllBytes(pathText);
 
-            for (byte aText_utf8 : text_utf8) {
-                int bb = aText_utf8 < 0 ? 256 + aText_utf8 : aText_utf8;
-                String bb16 = Integer.toString(bb, 16);
-                out.write(bb16 + " ");
+            for (byte word : text) {
+                word = word < 0 ? (byte) (128 + word) : word;
+                out.write(word + " ");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    //1251
-        try (Writer out = new OutputStreamWriter(new FileOutputStream("text_win1251.bin"),"windows-1251")) {
-            Path pathText_utf8 = Paths.get("text_win1251.txt");
-            byte[] text_utf8 = Files.readAllBytes(pathText_utf8);
-
-            for (byte aText_utf8 : text_utf8) {
-                int bb = aText_utf8 < 0 ? 256 + aText_utf8 : aText_utf8;
-                String bb16 = Integer.toString(bb, 16);
-                out.write(bb16 + " ");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    //koir
-        try (Writer out = new OutputStreamWriter(new FileOutputStream("text_koi8r.bin"),"KOI8_R")) {
-            Path pathText_utf8 = Paths.get("text_koi8r.txt");
-            byte[] text_utf8 = Files.readAllBytes(pathText_utf8);
-
-            for (byte aText_utf8 : text_utf8) {
-                int bb = aText_utf8 < 0 ? 256 + aText_utf8 : aText_utf8;
-                String bb16 = Integer.toString(bb, 16);
-                out.write(bb16 + " ");
-            }
-
-            for (byte aText_utf8 : text_utf8)
-                aText_utf8 = aText_utf8 < 0 ? (byte) (128 + aText_utf8) : aText_utf8;
-            Files.write(Paths.get("text_koi7r.txt"), text_utf8);
+            //Files.write(Paths.get("text_koi7r.txt"), text_utf8);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
 
 
 }
