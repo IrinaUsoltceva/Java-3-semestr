@@ -8,29 +8,40 @@ public class T4_File_reader_writer {
         task4_3();
     }
 
-    private static void task4_2(String text) {
+    private static void writeInKodirovka (String file, String kodirovka, String text) {
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("text_utf8.txt"), "UTF8"))) {
-            bw.write(text);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("text_win1251.txt"), "windows-1251"))) {
-            bw.write(text);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("text_koi8r.txt"), "KOI8_R"))) {
+                new FileOutputStream(file), kodirovka))) {
             bw.write(text);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private static void task4_2(String text) {
+        writeInKodirovka("text_utf8.txt", "UTF8", text);
+        writeInKodirovka("text_win1251.txt", "windows-1251", text);
+        writeInKodirovka("text_koi8r.txt", "KOI8_R", text);
+    }
+
+    private static void reWriteInThreeBin(String fileIn, String kodirovka) {
+        String fileName =
+        try (
+            Writer outb = new OutputStreamWriter(new FileOutputStream("text_utf8_b.bin"),"UTF8");
+            Writer outbb = new OutputStreamWriter(new FileOutputStream("text_utf8_bb.bin"),"UTF8");
+            Writer outbb16 = new OutputStreamWriter(new FileOutputStream("text_utf8_bb16.bin"),"UTF8")
+        ) {
+            Path pathText_utf8 = Paths.get("text_utf8.txt");
+            byte[] text_utf8 = Files.readAllBytes(pathText_utf8);
+
+            for (byte aText_utf8 : text_utf8) {
+                int bb = aText_utf8 < 0 ? 256 + aText_utf8 : aText_utf8;
+                String bb16 = Integer.toString(bb, 16);
+                out.write(bb16 + " ");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private static void task4_3() {
 
     //utf8
