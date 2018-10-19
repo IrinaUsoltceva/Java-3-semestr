@@ -1,4 +1,4 @@
-package JavaFX.L5_ru.spbu.arts.javafx;
+package LJavafx;
 
 import javafx.application.Application;
 import javafx.scene.Parent;

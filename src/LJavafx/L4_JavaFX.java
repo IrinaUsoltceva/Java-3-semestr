@@ -1,4 +1,4 @@
-package JavaFX;
+package LJavafx;
 
 public class L4_JavaFX {
     /*

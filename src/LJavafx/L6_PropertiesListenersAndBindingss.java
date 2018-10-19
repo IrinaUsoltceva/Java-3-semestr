@@ -1,4 +1,4 @@
-package JavaFX.L5_ru.spbu.arts.javafx;
+package LJavafx;
 
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -204,6 +204,9 @@ public class L6_PropertiesListenersAndBindingss extends Application {
         //не использовать биндингс там, где они не нужны. есть универсальный механизм слушателей,
         //а биндинг подходят только для вполне конкретной задачи: следить, чтобы значения разных свойств
         //соответствовали друг другу
+
+        //ctrl + shift + enter - чот полезное
+
 
 
 
