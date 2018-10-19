@@ -1,19 +1,18 @@
 package JavaFX.L5_ru.spbu.arts.javafx;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 
 public class L6_PropertiesListenersAndBindingss extends Application {
 
@@ -21,6 +20,17 @@ public class L6_PropertiesListenersAndBindingss extends Application {
     //окно нашей программы
     private TextField textField1;
     private Button button1;
+
+    private Label label2 = new Label();
+    private TextField textField2 = new TextField("Введите текст");
+    private Label label3 = new Label();
+    private TextField textField3 = new TextField("Введите текст");
+    private Label label4 = new Label();
+    private TextField textField4 = new TextField("Введите текст");
+    private Label label5 = new Label();
+    private TextField textField5 = new TextField("Введите текст");
+    private Label label6 = new Label();
+    private TextField textField6 = new TextField("Введите текст");
 
     @Override
     public void start(Stage primaryStage) {
@@ -57,9 +67,24 @@ public class L6_PropertiesListenersAndBindingss extends Application {
         );
         example1.setStyle("-fx-background-color: #00FF00"); //другой способ, чуть короче
         //пользуемся CSS со стилями из javafx
+
         //----------------------------------------------------
 
-        root.getChildren().addAll(example1);
+        VBox example2 = new VBox(new Label("Пример2"), label2, textField2);
+        VBox example3 = new VBox(new Label("Пример3"), label3, textField3);
+        VBox example4 = new VBox(new Label("Пример4"), label4, textField4);
+        VBox example5 = new VBox(new Label("Пример5"), label5, textField5);
+        VBox example6 = new VBox(new Label("Пример6"), label6, textField6);
+
+        //----------------------------------------------------
+
+        root.setHgap(8); //доабвим отсступы
+        root.setVgap(8); //горизонтальные и вертикальные
+
+        root.getChildren().addAll(
+                example1, example2, example3,
+                example4, example5, example6
+        );
 
         return root;
     }
@@ -143,5 +168,45 @@ public class L6_PropertiesListenersAndBindingss extends Application {
 
 
         //-------------Пример 2-------------
+        //Связывание свойств. Сделаем так, что текст на метке label2
+        //всегда будет совпадать с текстом, который введен в поле textField2
+        textField2.textProperty().addListener(
+                prop -> label2.setText(textField2.getText())
+        );
+        label2.setText(textField2.getText()); //чтобы вначале значения тоже совпадали
+
+        //----------------Пример3-----------------
+        //свяжем свойства напрямую. Скажем, чтобы значения свойства
+        //text в метке всегда было равано значению свойства ttext в текстовом поле
+        // то, что свойства с одним названием - случайность, главное, шоб одного типа
+        label3.textProperty().bind(textField3.textProperty());
+        //свойство теперь привязано, его нельзя менять напрямую:
+        //label3.setText() - запрещено
+
+        //--------------Пример4---------------------
+        //Хотим, чтобы в метке дополнительно рисовались скобочки в начале и конце
+        label4.textProperty().bind( //javafx.beans.Bindings
+                Bindings.concat(//это аналог операции + для строк, но здесь не строки, а property
+                         "[",
+                        textField4.textProperty(),
+                        "]"
+                )//метод concat создает значение, за изменением которого можно следить
+        );
+
+        //-------------------------------Пример 5---------------
+        // Хотим, чтобы в метке текст всегда был в верхнем регистре
+        label5.textProperty().bind( //javafx.beans.Bindings
+                Bindings.createStringBinding(
+                        () -> textField5.getText().toUpperCase(),
+                        textField5.textProperty() //за изменением какого значения надо следить
+                )
+        );
+        //не использовать биндингс там, где они не нужны. есть универсальный механизм слушателей,
+        //а биндинг подходят только для вполне конкретной задачи: следить, чтобы значения разных свойств
+        //соответствовали друг другу
+
+
+
+
     }
 }
