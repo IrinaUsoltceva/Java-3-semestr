@@ -51,6 +51,7 @@ public class T5_kontakti extends Application {
         HBox textAndButton = new HBox();
         Button send = new Button("send");
         TextField message = new TextField("message");
+        HBox.setHgrow(message, Priority.ALWAYS);
         textAndButton.getChildren().addAll(message, send);
 
         VBox left = new VBox();
@@ -65,6 +66,7 @@ public class T5_kontakti extends Application {
 
         VBox.setVgrow(kontaktiList, Priority.ALWAYS);
         VBox.setVgrow(dialog, Priority.ALWAYS);
+        HBox.setHgrow(right, Priority.ALWAYS);
 
 
 
