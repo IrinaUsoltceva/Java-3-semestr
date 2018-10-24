@@ -24,18 +24,20 @@ public class T6_color_circle extends Application {
         primaryStage.show();
     }
 
-    FlowPane root = new FlowPane();
+    private FlowPane root = new FlowPane();
 
-    Slider radius = new Slider(1, 100, 10);
-    ColorPicker fonColor = new ColorPicker();
-    ColorPicker circleColor = new ColorPicker();
+    private Slider radius = new Slider(10, 200, 100);
+    private ColorPicker fonColor = new ColorPicker();
+    private ColorPicker circleColor = new ColorPicker();
+    private Label fonLabel = new Label("цвет фона");
+    private Label circleLabel = new Label("цвет круга");
 
-    Circle circle = new Circle(90, 90, 90);
-    Pane fon = new Pane(circle);
+    private Circle circle = new Circle(90, 90, 90);
+    private Pane fon = new Pane(circle);
 
     private Parent initInterface() {
 
-        VBox manager = new VBox(radius, circleColor, fonColor);
+        VBox manager = new VBox(radius, circleLabel, circleColor, fonLabel, fonColor);
         manager.setPrefWidth(300);
 
         root.getChildren().addAll(manager, fon);
@@ -45,6 +47,16 @@ public class T6_color_circle extends Application {
 
     private void initInteraction() {
         circle.fillProperty().bind(circleColor.valueProperty());
+
+        circle.radiusProperty().bind(radius.valueProperty());
+
+        fonColor.valueProperty().addListener(
+                prop -> fon.setStyle("-fx-background-color: #" + fonColor.valueProperty().get().toString().substring(2, 8))
+        );
+
+        circle.centerXProperty().setValue(fon.getWidth() / 2);
+        circle.centerYProperty().setValue(fon.getHeight() / 2);
+
 
     }
 }
