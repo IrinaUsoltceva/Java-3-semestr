@@ -23,39 +23,27 @@ public class T6_color_circle extends Application {
         primaryStage.show();
     }
 
-    private FlowPane root = new FlowPane();
+    private HBox root = new HBox();
 
     private Slider radius = new Slider(10, 200, 100);
     private ColorPicker fonColor = new ColorPicker();
     private ColorPicker circleColor = new ColorPicker();
     private Label fonLabel = new Label("цвет фона");
     private Label circleLabel = new Label("цвет круга");
+    private Label radiusLabel = new Label("размер круга");
 
     private Circle circle = new Circle(90, 90, 90);
     private Pane fon = new Pane(circle);
 
     private Parent initInterface() {
 
-        VBox manager = new VBox(radius, circleLabel, circleColor, fonLabel, fonColor);
+        VBox manager = new VBox(radiusLabel, radius, circleLabel, circleColor, fonLabel, fonColor);
         manager.setPrefWidth(300);
 
         root.getChildren().addAll(manager, fon);
-        root.setPrefWidth(600);
+        root.setPrefSize(800, 500);
+        HBox.setHgrow(fon, Priority.ALWAYS);
 
-        /*
-        VBox manager = new VBox(radius, circleLabel, circleColor, fonLabel, fonColor);
-        manager.setPrefWidth(300);
-
-        VBox fonAndCircle = new VBox(fon);
-
-        //fon.setMinSize(100,100);
-        //fon.setMaxSize(600,600);
-
-        VBox.setVgrow(fon, Priority.ALWAYS);
-
-        root.getChildren().addAll(manager, fonAndCircle);
-        root.setPrefWidth(600);
-         */
         return root;
     }
 
@@ -98,9 +86,17 @@ public class T6_color_circle extends Application {
                 )
         );
 
-        //circle.centerXProperty().setValue(fon.getWidth() / 2); //нужно через биндинги
-        //circle.centerYProperty().setValue(fon.getHeight() / 2);
-
+        radius.maxProperty().bind(
+                Bindings.createDoubleBinding(
+                        () -> {
+                            if (fon.getHeight() < fon.getWidth())
+                                return fon.getHeight() / 2;
+                            else return fon.getWidth() / 2;
+                        },
+                        fon.heightProperty(),
+                        fon.widthProperty()
+                )
+        );
 
     }
 
