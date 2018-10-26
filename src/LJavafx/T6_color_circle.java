@@ -97,7 +97,6 @@ public class T6_color_circle extends Application {
                         fon.widthProperty()
                 )
         );
-
     }
 
     private static String toRGBCode(Color color) {
