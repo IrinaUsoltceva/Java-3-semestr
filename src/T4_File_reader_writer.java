@@ -2,6 +2,9 @@ import java.io.*;
 import java.nio.file.*;
 
 public class T4_File_reader_writer {
+
+    public static final String FOLDER = "files_encoding_out/";
+
     public static void main(String[] args) {
         String text = "Четыре чёрненьких чумазеньких чертёнка чертили чёрными чернилами чертёж чрезвычайно чётко";
         task4_2(text);
@@ -11,7 +14,7 @@ public class T4_File_reader_writer {
 
     private static void writeInKodirovka (String file, String kodirovka, String text) {
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(file), kodirovka))) {
+                new FileOutputStream(FOLDER + file), kodirovka))) {
             bw.write(text);
         } catch (Exception e) {
             e.printStackTrace();
@@ -25,13 +28,13 @@ public class T4_File_reader_writer {
     }
 
     private static void reWriteInThreeBin(String fileIn, String kodirovka) {
-        String fileName = fileIn.substring(0, fileIn.length() - 4);
+        String fileName = FOLDER + fileIn.substring(0, fileIn.length() - 4);
         try (
             Writer outb = new OutputStreamWriter(new FileOutputStream(fileName + "_b.bin"), kodirovka);
             Writer outbb = new OutputStreamWriter(new FileOutputStream(fileName + "_bb.bin"), kodirovka);
             Writer outbb16 = new OutputStreamWriter(new FileOutputStream(fileName + "_bb16.bin"), kodirovka)
         ) {
-            Path pathText = Paths.get(fileIn);
+            Path pathText = Paths.get(FOLDER + fileIn);
             byte[] text = Files.readAllBytes(pathText);
 
             for (byte word : text) {
@@ -57,15 +60,15 @@ public class T4_File_reader_writer {
     }
 
     private static void task4_4() {
-        try (Writer out = new OutputStreamWriter(new FileOutputStream("text_koi7r.txt"),"KOI8_R")) {
-            Path pathText = Paths.get("text_koi8r.txt");
+        try (FileOutputStream out = new FileOutputStream(FOLDER + "text_koi7r.txt")) {
+            Path pathText = Paths.get(FOLDER + "text_koi8r.txt");
             byte[] text = Files.readAllBytes(pathText);
 
             for (byte word : text) {
                 word = word < 0 ? (byte) (128 + word) : word;
-                out.write(word + " ");
+                out.write(word);
             }
-            //Files.write(Paths.get("text_koi7r.txt"), text_utf8);
+            //Files.write(Paths.get("text_koi7r.txt"), text);
         } catch (Exception e) {
             e.printStackTrace();
         }

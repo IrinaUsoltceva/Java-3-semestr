@@ -1,20 +1,14 @@
 package LJavafx;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javax.swing.text.html.ListView;
 
 public class T5_kontakti extends Application {
     //абстрактный класс реализует не все
@@ -58,7 +52,7 @@ public class T5_kontakti extends Application {
         left.getChildren().addAll(dialog, textAndButton);
 
         Label kontakti = new Label("kontakti");
-        javafx.scene.control.ListView<String> kontaktiList = new javafx.scene.control.ListView<>();
+        ListView<String> kontaktiList = new ListView<>();
         VBox right = new VBox();
         right.getChildren().addAll(kontakti, kontaktiList);
 
@@ -66,10 +60,7 @@ public class T5_kontakti extends Application {
 
         VBox.setVgrow(kontaktiList, Priority.ALWAYS);
         VBox.setVgrow(dialog, Priority.ALWAYS);
-        HBox.setHgrow(right, Priority.ALWAYS);
-
-
-
+        HBox.setHgrow(left, Priority.ALWAYS);
 
         /*
 
