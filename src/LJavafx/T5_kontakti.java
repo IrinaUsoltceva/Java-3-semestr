@@ -72,7 +72,6 @@ public class T5_kontakti extends Application {
                     message.textProperty().setValue("");
                 }
         );
-
-
+        dialog.setEditable(false);
     }
 }
