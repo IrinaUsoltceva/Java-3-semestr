@@ -1,9 +1,9 @@
-package LJavafx;
+package ljavafx;
 
 import javafx.application.Application;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -65,13 +65,15 @@ public class T5_kontakti extends Application {
     }
 
     private void initInteraction() {
-        send.addEventHandler(
-                ActionEvent.ACTION,
-                a -> {
-                    dialog.appendText(message.getText() + "\n");
-                    message.textProperty().setValue("");
-                }
-        );
+        EventHandler<ActionEvent> sendAction = a -> {
+            dialog.appendText(message.getText() + "\n");
+            message.textProperty().setValue("");
+        };
+
+//        send.addEventHandler(ActionEvent.ACTION, sendAction);
+        send.setOnAction(sendAction);
+        message.setOnAction(sendAction);
+
         dialog.setEditable(false);
     }
 }

@@ -1,4 +1,4 @@
-package LJavafx;
+package ljavafx;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -12,17 +12,6 @@ import javafx.stage.Stage;
 import javafx.beans.binding.Bindings;
 
 public class T6_color_circle extends Application {
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("circle");
-
-        Parent root = initInterface();
-        primaryStage.setScene(new Scene(root));
-
-        initInteraction();
-        primaryStage.show();
-    }
-
     private HBox root = new HBox();
 
     private Slider radius = new Slider(10, 200, 100);
@@ -33,7 +22,23 @@ public class T6_color_circle extends Application {
     private Label radiusLabel = new Label("размер круга");
 
     private Circle circle = new Circle(90, 90, 90);
+
+
     private Pane fon = new Pane(circle);
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("circle");
+
+        Parent root = initInterface();
+        primaryStage.setScene(new Scene(root));
+
+        initInteraction();
+        primaryStage.show();
+
+        radius.setMin(10);
+        radius.setValue((radius.getMin() + radius.getMax()) / 2);
+    }
 
     private Parent initInterface() {
 
@@ -91,12 +96,17 @@ public class T6_color_circle extends Application {
                         () -> {
                             if (fon.getHeight() < fon.getWidth())
                                 return fon.getHeight() / 2;
-                            else return fon.getWidth() / 2;
+                            else
+                                return fon.getWidth() / 2;
                         },
                         fon.heightProperty(),
                         fon.widthProperty()
                 )
         );
+
+//        radius.minProperty().bind(
+//                Bindings.min(Bindings.add(radius.maxProperty(), - 1), 10)
+//        );
     }
 
     private static String toRGBCode(Color color) {

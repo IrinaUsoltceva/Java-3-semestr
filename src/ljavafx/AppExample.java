@@ -1,4 +1,4 @@
-package LJavafx;
+package ljavafx;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
