@@ -1,6 +1,7 @@
 package ljavafx;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -21,6 +22,7 @@ import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Observable;
 
 public class T7_images extends Application {
@@ -75,15 +77,19 @@ public class T7_images extends Application {
 
         //Path directoryWithImages = Paths.get("P:\\фотошоп");
         String directoryWithImages = "P:\\фотошоп";
-        File dirImages = new File(directoryWithImages);
+        File dirImagesFile = new File(directoryWithImages);
+
+        ObservableList<File> listOfImages = FXCollections.observableArrayList();
 
         // напишите код, который находит все файлы в этом каталоге
-        // и добавляет их в список ObservableList.
+        if (dirImagesFile.isDirectory()) {
+            File[] imageFiles = dirImagesFile.listFiles();
+            if (imageFiles != null) {
+                listOfImages.addAll(Arrays.asList(imageFiles));
+                // и добавляет их в список ObservableList.
+            }
+        }
 
 
-
-        // Считайте пока, что все файлы в этом каталоге являются изображениями.
-        // В следующих пунктах нужно будет обрабатывать ошибки,
-        // и тогда потребуется исключить из списка все файлы, которые не удалось загрузить как изображения.
     }
 }
