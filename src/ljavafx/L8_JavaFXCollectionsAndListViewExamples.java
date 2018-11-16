@@ -10,8 +10,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
-
 public class L8_JavaFXCollectionsAndListViewExamples extends Application {
 
     private ListView<Integer> listView;

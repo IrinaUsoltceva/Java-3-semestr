@@ -20,15 +20,12 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Observable;
 
 public class T7_images extends Application {
 
     private SplitPane root = new SplitPane();
-    private ListView<Image> images = new ListView<>();
+    private ListView<File> images = new ListView<>();
     private Button chooseButton = new Button("выбрать");
     private TextField pathToCatalog = new TextField("путь до каталога");
 
@@ -63,9 +60,10 @@ public class T7_images extends Application {
         fullImage.setPreserveRatio(true);
 
 //временно, чтобы картинка была
-        URL pickURL = L7_ResourcesExamples.class.getResource("cat.jpg");
+        /*URL pickURL = L7_ResourcesExamples.class.getResource("cat.jpg");
         Image img = new Image(pickURL.toExternalForm());
-        fullImage.setImage(img);
+        fullImage.setImage(img);*/
+        fullImage.setImage(new Image(L7_ResourcesExamples.class.getResource("cat.jpg").toExternalForm()));
 
         root.getItems().addAll(images, rightWithChooseAndFullImage);
 
@@ -74,8 +72,6 @@ public class T7_images extends Application {
 
     private void initInteraction() {
         //Для начала выберите какой-то фиксированный каталог с изображениями,
-
-        //Path directoryWithImages = Paths.get("P:\\фотошоп");
         String directoryWithImages = "P:\\фотошоп";
         File dirImagesFile = new File(directoryWithImages);
 
@@ -89,6 +85,20 @@ public class T7_images extends Application {
                 // и добавляет их в список ObservableList.
             }
         }
+        images.setItems(listOfImages);
+
+        //Сделайте так, что при выборе изображения в списке (images),
+        // оно бы отображалось в ImageView (fullImage).
+        images.getSelectionModel().selectedItemProperty().addListener(
+                prop -> {
+                    File selectedImage = images.getSelectionModel().getSelectedItem();
+                    String imageURL = selectedImage.toURI().toString();
+                    Image img = new Image(imageURL);
+                    fullImage.setImage(img);
+                }
+        );
+
+
 
 
     }
