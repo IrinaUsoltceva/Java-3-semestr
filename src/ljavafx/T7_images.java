@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -99,6 +96,34 @@ public class T7_images extends Application {
         );
 
 
+        //сделайте так, что ListView (images) при отображении элемента показывает картинку и имя файла.
+        // Используйте CellFactory
+        images.setCellFactory(
+                (lv) -> new ListCell<File>() {
+                    @Override
+                    protected void updateItem(File item, boolean empty) {
+                        //переопределяем метод, который настраивает отображение
+                        //ячейки. в начале вызываем этот же метод базового класса
+                        super.updateItem(item, empty);
+
+                        //важно обеспечить правильное отображение ячейки, если
+                        //она пустая, т.е. если на эту ячейку не хватило элементов
+                        if (empty)
+                            setText("");
+                        else {
+                            //что нужно отобразить хранится в переменной item
+                            String i = item.toString();
+                            setText(i.substring(directoryWithImages.length() + 1));
+                            setGraphic(new ImageView(L7_ResourcesExamples.class.getResource("cat.jpg").toExternalForm()));
+                        }
+                    }
+                });
+        // и метод setGraphics(new ImageView(...)) у вашего анонимного класса, наследника ListCell.
+
+        // А при загрузке картинки с диска,
+        // укажите, что вы хотите загрузить уменьшенную версию изображения,
+        // для этого можно при загрузке
+        // указать в качестве дополнительных аргументов размеры уменьшенной копии, например, 64 на 64.
 
 
     }
