@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Arrays;
 
 public class T7_images extends Application {
@@ -29,10 +28,10 @@ public class T7_images extends Application {
     private ImageView fullImage = new ImageView();
     private Pane paneForImageView = new Pane(fullImage);
 
-    ObservableList<Image> pictures;
+    private ObservableList<File> listOfImages = FXCollections.observableArrayList();
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("изображения");
 
         Parent root = initInterface();
@@ -68,12 +67,12 @@ public class T7_images extends Application {
     }
 
     private void initInteraction() {
+        //1
         //Для начала выберите какой-то фиксированный каталог с изображениями,
         String directoryWithImages = "P:\\фотошоп";
         File dirImagesFile = new File(directoryWithImages);
 
-        ObservableList<File> listOfImages = FXCollections.observableArrayList();
-
+        //2
         // напишите код, который находит все файлы в этом каталоге
         if (dirImagesFile.isDirectory()) {
             File[] imageFiles = dirImagesFile.listFiles();
@@ -84,6 +83,7 @@ public class T7_images extends Application {
         }
         images.setItems(listOfImages);
 
+        //3
         //Сделайте так, что при выборе изображения в списке (images),
         // оно бы отображалось в ImageView (fullImage).
         images.getSelectionModel().selectedItemProperty().addListener(
@@ -95,36 +95,34 @@ public class T7_images extends Application {
                 }
         );
 
-
+        //4
         //сделайте так, что ListView (images) при отображении элемента показывает картинку и имя файла.
         // Используйте CellFactory
         images.setCellFactory(
                 (lv) -> new ListCell<File>() {
                     @Override
                     protected void updateItem(File item, boolean empty) {
-                        //переопределяем метод, который настраивает отображение
-                        //ячейки. в начале вызываем этот же метод базового класса
                         super.updateItem(item, empty);
 
-                        //важно обеспечить правильное отображение ячейки, если
-                        //она пустая, т.е. если на эту ячейку не хватило элементов
                         if (empty)
                             setText("");
                         else {
-                            //что нужно отобразить хранится в переменной item
                             String i = item.toString();
                             setText(i.substring(directoryWithImages.length() + 1));
-                            setGraphic(new ImageView(L7_ResourcesExamples.class.getResource("cat.jpg").toExternalForm()));
+
+                            String imageURL = item.toURI().toString();
+                            Image img = new Image(imageURL, 64, 64, true, false);
+                            setGraphic(new ImageView(img));
                         }
                     }
                 });
-        // и метод setGraphics(new ImageView(...)) у вашего анонимного класса, наследника ListCell.
 
-        // А при загрузке картинки с диска,
-        // укажите, что вы хотите загрузить уменьшенную версию изображения,
-        // для этого можно при загрузке
-        // указать в качестве дополнительных аргументов размеры уменьшенной копии, например, 64 на 64.
-
+        //5
+        //Сделайте так, что каталог можно выбирать.
+        // Используйте класс Directory Chooser.
+        // Это должен быть один DirectoryChooser на всю программу,
+        // созадйте его один раз при запуске программы,
+        // тогда он будет запоминать, какой каталог открывал в прошлый раз.
 
     }
 }
