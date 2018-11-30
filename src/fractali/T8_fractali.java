@@ -1,4 +1,4 @@
-package ljavafx;
+package fractali;
 
 public class T8_fractali {
     /*
@@ -33,6 +33,7 @@ public class T8_fractali {
      интерфейс Palette {
         Сolor getColor (double ind)
     }
+
     гет колор дает номер, а палитра превращает в отдельный цвет
 
     class BlackwhitePalette implements Palette {
