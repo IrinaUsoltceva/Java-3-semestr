@@ -2,7 +2,7 @@ package fractali;
 
 import javafx.scene.paint.Color;
 
-class BlackwhitePalette implements Palette {
+class PaletteBlackwhite implements Palette {
     @Override
     public Color getColor(double ind) {
         if (ind < 0.5)
@@ -10,6 +10,4 @@ class BlackwhitePalette implements Palette {
         else
             return Color.WHITE;
     }
-
-    //будет палитр меньше половинки - черная, больша -  белая.      самим - градиент
 }

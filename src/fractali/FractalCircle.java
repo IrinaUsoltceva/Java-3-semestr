@@ -1,6 +1,6 @@
 package fractali;
 
-public class CircleFractale implements Fractal {
+public class FractalCircle implements Fractal {
     @Override
     public double getColor(double x, double y) {
         if (x * x + y * y < 1)

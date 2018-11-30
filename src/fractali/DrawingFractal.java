@@ -12,14 +12,15 @@ import javafx.stage.Stage;
 
 public class DrawingFractal extends Application {
     //ix = x' в конспекте, iy = y' в конспекте
-    private double x0 = -2; //координаты левого верхнего угла в системе
-    private double y0 = 2; //координат, где центр по центру экрана, если экран 400х400
-    private double dx = 0.01; //размер пикселя  в (x,y)
+    private double x0 = -2; // у нас математические координаты, поле от -2 до 2, круг от -1 до 1
+    private double y0 = 2; // но нужно понять, сколько нужно пикселей и как переходить, допустим, хотим, чтобы поле
+    private double dx = 0.01; // рисовалось 400х400 пикселей. тогда в одной единице поля 100х100 пикселей, т.е.
+                                //1 пиксель - 0,01 поля
     private int WIDTH = 400;
     private int HEIGHT = 400;
 
-    private Fractal fractal = new CircleFractale();
-    private Palette palette = new BlackwhitePalette();
+    private Fractal fractal = new FractalCircleGrayGradient();
+    private Palette palette = new PaletteGrayGradient();
 
     private HBox root = new HBox();
     private ImageView fullImage = new ImageView();
@@ -44,7 +45,6 @@ public class DrawingFractal extends Application {
     }
 
     private void initInteraction() {
-        pixelWriterForImageWithFractal.setColor(0,0, Color.RED);
         //перебрать все пиксели
         for (int ix = 0; ix < WIDTH - 1; ix++) {
             for (int iy = 0; iy < HEIGHT - 1; iy++) {

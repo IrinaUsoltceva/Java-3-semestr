@@ -36,7 +36,7 @@ public class T8_fractali {
 
     гет колор дает номер, а палитра превращает в отдельный цвет
 
-    class BlackwhitePalette implements Palette {
+    class PaletteBlackwhite implements Palette {
         @Override
         public Color getColor(double ind) {
             if (ind < 0,5)
@@ -52,7 +52,7 @@ public class T8_fractali {
 
     будем делать круг радиуса 1. внутри круга цвет 0, снаружи - цвет 1
 
-    class CircleFractale implement Fractal
+    class FractalCircle implement Fractal
         @override
         public double getColor(
             double x,
