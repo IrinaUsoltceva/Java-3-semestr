@@ -25,8 +25,6 @@ public class DrawingFractal extends Application {
 
     private HBox root = new HBox();
     private ImageView fullImage = new ImageView();
-    private WritableImage wiImageWithFractal = new WritableImage(WIDTH, HEIGHT);
-    private PixelWriter pixelWriterForImageWithFractal = wiImageWithFractal.getPixelWriter();
 
     @Override
     public void start(Stage primaryStage) {
@@ -40,12 +38,24 @@ public class DrawingFractal extends Application {
     }
 
     private Parent initInterface() {
-        fullImage.setImage(wiImageWithFractal);
+        Image image = createFractalImage(x0, y0, dx, fractal, palette, WIDTH, HEIGHT);
+        fullImage.setImage(image);
         root.getChildren().addAll(fullImage);
         return root;
     }
 
     private void initInteraction() {
+
+
+    }
+
+    private Image createFractalImage(double x0, double y0, double dx,
+                                     Fractal fractal, Palette palette,
+                                     int width, int height) {
+
+        WritableImage wiImageWithFractal = new WritableImage(width, height);
+        PixelWriter pixelWriterForImageWithFractal = wiImageWithFractal.getPixelWriter();
+
         //перебрать все пиксели
         for (int ix = 0; ix < WIDTH - 1; ix++) {
             for (int iy = 0; iy < HEIGHT - 1; iy++) {
@@ -58,14 +68,8 @@ public class DrawingFractal extends Application {
 
         }
 
-    }
 
-    private Image createFractelImagge (double x0, double y0, double dx,
-                                       Fractal fractal, Palette palette,
-                                       double width, double height) {
-
-
-        return new Image();
+        return wiImageWithFractal;
     }
 
 }
