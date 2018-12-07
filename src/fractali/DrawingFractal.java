@@ -3,6 +3,7 @@ package fractali;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -19,7 +20,7 @@ public class DrawingFractal extends Application {
     private int WIDTH = 400;
     private int HEIGHT = 400;
 
-    private Fractal fractal = new FractalCircleGrayGradient();
+    private Fractal fractal = new FractalMandelbrot();
     private Palette palette = new PaletteGrayGradient();
 
     private HBox root = new HBox();
@@ -57,6 +58,14 @@ public class DrawingFractal extends Application {
 
         }
 
+    }
+
+    private Image createFractelImagge (double x0, double y0, double dx,
+                                       Fractal fractal, Palette palette,
+                                       double width, double height) {
+
+
+        return new Image();
     }
 
 }
