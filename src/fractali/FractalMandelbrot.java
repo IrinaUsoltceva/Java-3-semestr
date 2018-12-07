@@ -11,10 +11,12 @@ public class FractalMandelbrot implements Fractal {
         double p = x;
         double q = y;
 
-        double N = 100;
+        int N = 100; //TODO move to constructor
+        double R = 100;  //TODO move to constructor
+
         int k = 0;
         for (int i = 0; i < 100; i++) {
-            if (Math.sqrt(x * x + y * y) < N) {
+            if (x * x + y * y < R * R) {
                 double x1 = x * x - y * y + p;
                 double y1 = 2 * x * y + q;
                 x = x1;
@@ -22,8 +24,7 @@ public class FractalMandelbrot implements Fractal {
                 k++;
             }
             else {
-                double index = k / N;
-                return index;
+                return (double)k / N;
             }
 
         }
