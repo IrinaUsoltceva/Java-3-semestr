@@ -63,25 +63,31 @@ public class DrawingFractal extends Application {
     }
 
     private void changePlace(KeyCode keyCode) {
-       if (keyCode == UP) {
+       if (keyCode == UP)
            y0 += sdvig * dx;
-           updateImage();
+       if (keyCode == DOWN)
+            y0 -= sdvig * dx;
+       if (keyCode == LEFT)
+            x0 -= sdvig * dx;
+       if (keyCode == RIGHT)
+            x0 += sdvig * dx;
+
+       if (keyCode == EQUALS || keyCode == ADD) {
+           double dx1 = dx / 1.5;
+           x0 += root.getWidth()/2 * (dx - dx1);
+           y0 -= root.getHeight()/2 * (dx - dx1);
+           dx = dx1;
        }
 
-        if (keyCode == DOWN) {
-            y0 -= sdvig * dx;
-            updateImage();
+        if (keyCode == MINUS || keyCode == SUBTRACT) {
+            double dx1 = dx * 1.5;
+            x0 += root.getWidth()/2 * (dx - dx1);
+            y0 -= root.getHeight()/2 * (dx - dx1);
+            dx = dx1;
         }
 
-        if (keyCode == LEFT) {
-            x0 -= sdvig * dx;
-            updateImage();
-        }
 
-        if (keyCode == RIGHT) {
-            x0 += sdvig * dx;
-            updateImage();
-        }
+       updateImage();
     }
 
     private void updateImage() {
