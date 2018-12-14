@@ -13,34 +13,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Zadanie extends Application {
 
     private Label title = new Label("здесь будут вопросы");
     private ImageView picture = new ImageView();
-    //private String url = "https://i.pinimg.com/474x/ac/6f/15/ac6f155f97200d7da7c1672fe7955d76.jpg";
-    private String fileQuest = "quest.txt";
 
     private int questionNumber = 0;
-    private ArrayList<String> questions = new ArrayList<>();
-    private int[][] answers = {{50, 101, 360, 200},
-            {300, 80, 100, 160},
-            {300, 80, 50, 180},
-            {40, 130, 80, 70},
-            {30, 220, 400, 110}};
-    //x y wx wy
-    //473 x 409
+    private Question[] questions = new Question[5];
     private int result = 0;
-
-    private Scanner scannerIn;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("зачет");
 
-        fillQuestions();
         Parent root = initInterface();
         primaryStage.setScene(new Scene(root));
 
@@ -51,11 +38,11 @@ public class Zadanie extends Application {
     private Parent initInterface() {
         title.setText("где сам осленок");
         loadImage();
-        loadText();
         return new VBox(title, picture);
     }
 
     private void initInteraction(Stage primaryStage) {
+        loadQuest();
         primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
                 clicked(event.getSceneX(), event.getSceneY())
         );
@@ -69,39 +56,41 @@ public class Zadanie extends Application {
         ) {
             Image img = new Image(image);
             picture.setImage(img);
-
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private void loadText() {
+    private void loadQuest() {
         try (
                 InputStream textIS = Zadanie
                         .class
                         .getResourceAsStream("quest")
         ) {
-            scannerIn = new Scanner(textIS);
+            Scanner scannerIn = new Scanner(textIS);
+            for (int i = 0; i < 5; i++) {
+                questions[i] = new Question(
+                        scannerIn.nextInt(), scannerIn.nextInt(), scannerIn.nextInt(), scannerIn.nextInt(),
+                        scannerIn.nextLine()
+                );
+            }
+
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private void fillQuestions() {
-        questions.add("где сам осленок");
-        questions.add("где голова");
-        questions.add("где уши");
-        questions.add("где хвост");
-        questions.add("где лапы");
-    }
-
     private void clicked(double x, double y) {
+        Question question = questions[questionNumber];
+
         if (
-                answers[questionNumber][0] <= x &&
-                x <= answers[questionNumber][0] + answers[questionNumber][2] &&
-                answers[questionNumber][1] <= y &&
-                y <= answers[questionNumber][1] + answers[questionNumber][3]
+                question.getX() <= x && x <= question.getX() + question.getWx() &&
+                question.getY() <= y && y <= question.getY() + question.getWy()
         )
             result++;
-        System.out.println(questionNumber + " " + result);
+//        System.out.println(question.getX() + " " + x +  " " + (question.getX() + question.getWx()));
+//        System.out.println(question.getY() + " " + y +  " " + (question.getY() + question.getWy()));
+//        System.out.println(questionNumber + " " + result);
         questionNumber++;
 
         if (questionNumber == 5) {
@@ -109,28 +98,6 @@ public class Zadanie extends Application {
             questionNumber = 0;
             result = 0;
         }
-        title.setText(questions.get(questionNumber));
+        title.setText(question.getQuestionString());
     }
-
-    /*
-    пять вопросов наподобие "где у осла уши"
-    ткнуть на уши - правильный ответ, следующий вопрос
-
-    после пяти вопросов
-        - сообщение "3/5"
-        - все с начала начинаем
-
-    событие mouse.click - там значение в координатах
-
-    картинка - ресурс
-    вопросы и ответы - ресурс, текстовый файл
-    30 50 100 100 где уши?
-    100 200 100 100 где носик?
-
-    scanner нормально работает с (IS)
-    один трай открывает ресурс, не перемудривать
-    можно попробовать текстовый файл на конец
-     */
-
-
 }
