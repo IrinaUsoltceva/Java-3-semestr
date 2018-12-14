@@ -10,17 +10,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ljavafx.L7_ResourcesExamples;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-
-public class zadanie extends Application {
+public class Zadanie extends Application {
 
     private Label title = new Label("здесь будут вопросы");
     private ImageView picture = new ImageView();
@@ -29,16 +25,16 @@ public class zadanie extends Application {
 
     private int questionNumber = 0;
     private ArrayList<String> questions = new ArrayList<>();
-    private int[][] answers = {{157, 136, 200, 150},
-                               {354, 136, 60, 140},
-                               {354, 136, 60, 140},
-                               {354, 136, 60, 140},
-                               {354, 136, 60, 140}};
-                                 //x y wx wy
+    private int[][] answers = {{50, 101, 360, 200},
+            {300, 80, 100, 160},
+            {300, 80, 50, 180},
+            {40, 130, 80, 70},
+            {30, 220, 400, 110}};
+    //x y wx wy
     //473 x 409
     private int result = 0;
 
-    Scanner scannerIn;
+    private Scanner scannerIn;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -53,20 +49,21 @@ public class zadanie extends Application {
     }
 
     private Parent initInterface() {
-        title.setText(questions.get(questionNumber));
+        title.setText("где сам осленок");
         loadImage();
+        loadText();
         return new VBox(title, picture);
     }
 
     private void initInteraction(Stage primaryStage) {
         primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                clicked(event.getX(), event.getY())
+                clicked(event.getSceneX(), event.getSceneY())
         );
     }
 
-    private void loadImage () {
+    private void loadImage() {
         try (
-                InputStream image = zadanie
+                InputStream image = Zadanie
                         .class
                         .getResourceAsStream("oselik.jpg")
         ) {
@@ -77,32 +74,32 @@ public class zadanie extends Application {
         }
     }
 
-    private void loadText () {
+    private void loadText() {
         try (
-                InputStream textIS = zadanie
+                InputStream textIS = Zadanie
                         .class
-                        .getResourceAsStream("quest.txt")
-        ){
+                        .getResourceAsStream("quest")
+        ) {
             scannerIn = new Scanner(textIS);
         } catch (IOException e) {
         }
-
     }
 
     private void fillQuestions() {
         questions.add("где сам осленок");
-        questions.add("где голова1");
-        questions.add("где голова2");
-        questions.add("где голова3");
-        questions.add("где голова4");
+        questions.add("где голова");
+        questions.add("где уши");
+        questions.add("где хвост");
+        questions.add("где лапы");
     }
 
-
-    private void clicked (double x, double y) {
-        if (answers[questionNumber][0] <= x &&
+    private void clicked(double x, double y) {
+        if (
+                answers[questionNumber][0] <= x &&
                 x <= answers[questionNumber][0] + answers[questionNumber][2] &&
                 answers[questionNumber][1] <= y &&
-                y <= answers[questionNumber][1] + answers[questionNumber][3])
+                y <= answers[questionNumber][1] + answers[questionNumber][3]
+        )
             result++;
         System.out.println(questionNumber + " " + result);
         questionNumber++;
@@ -112,7 +109,6 @@ public class zadanie extends Application {
             questionNumber = 0;
             result = 0;
         }
-
         title.setText(questions.get(questionNumber));
     }
 
