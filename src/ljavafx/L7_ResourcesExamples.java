@@ -62,8 +62,6 @@ public class L7_ResourcesExamples extends Application {
         loadText();
         loadImage();
 
-
-
     }
 
     private Parent initInterface() {
