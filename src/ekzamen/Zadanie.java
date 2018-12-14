@@ -1,5 +1,4 @@
 package ekzamen;
-
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
@@ -90,8 +88,6 @@ public class Zadanie extends Application {
         )
             result++;
         questionNumber++;
-        System.out.println(question.getX() + " " + x + " " + (question.getX() + question.getWx()));
-        System.out.println(question.getY() + " " + y + " " + (question.getY() + question.getWy()));
 
         if (questionNumber == 5) {
             new Alert(Alert.AlertType.INFORMATION, "Конец! Итого: " + result + "/" + questionNumber).showAndWait();
