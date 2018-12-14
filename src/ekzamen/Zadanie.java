@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,15 +37,16 @@ public class Zadanie extends Application {
     }
 
     private Parent initInterface() {
-        title.setText("где сам осленок");
+        title.setText("Где сам осленок?");
         loadImage();
+        title.setFont((Font.font(40)));
         return new VBox(title, picture);
     }
 
     private void initInteraction(Stage primaryStage) {
         loadQuest();
         primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                clicked(event.getSceneX(), event.getSceneY())
+                clicked(event.getX(), event.getY())
         );
     }
 
@@ -82,22 +84,20 @@ public class Zadanie extends Application {
 
     private void clicked(double x, double y) {
         Question question = questions[questionNumber];
-
         if (
                 question.getX() <= x && x <= question.getX() + question.getWx() &&
                 question.getY() <= y && y <= question.getY() + question.getWy()
         )
             result++;
-//        System.out.println(question.getX() + " " + x +  " " + (question.getX() + question.getWx()));
-//        System.out.println(question.getY() + " " + y +  " " + (question.getY() + question.getWy()));
-//        System.out.println(questionNumber + " " + result);
         questionNumber++;
+        System.out.println(question.getX() + " " + x + " " + (question.getX() + question.getWx()));
+        System.out.println(question.getY() + " " + y + " " + (question.getY() + question.getWy()));
 
         if (questionNumber == 5) {
             new Alert(Alert.AlertType.INFORMATION, "Конец! Итого: " + result + "/" + questionNumber).showAndWait();
             questionNumber = 0;
             result = 0;
         }
-        title.setText(question.getQuestionString());
+        title.setText(questions[questionNumber].getQuestionString());
     }
 }
