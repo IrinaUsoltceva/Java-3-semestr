@@ -10,14 +10,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import ljavafx.L7_ResourcesExamples;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class zadanie extends Application {
 
     private Label title = new Label("здесь будут вопросы");
     private ImageView picture = new ImageView();
-    private String url = "https://i.pinimg.com/474x/ac/6f/15/ac6f155f97200d7da7c1672fe7955d76.jpg";
+    //private String url = "https://i.pinimg.com/474x/ac/6f/15/ac6f155f97200d7da7c1672fe7955d76.jpg";
+    private String fileQuest = "quest.txt";
 
     private int questionNumber = 0;
     private ArrayList<String> questions = new ArrayList<>();
@@ -30,6 +38,8 @@ public class zadanie extends Application {
     //473 x 409
     private int result = 0;
 
+    Scanner scannerIn;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("зачет");
@@ -40,20 +50,43 @@ public class zadanie extends Application {
 
         initInteraction(primaryStage);
         primaryStage.show();
-
     }
 
     private Parent initInterface() {
         title.setText(questions.get(questionNumber));
-        Image img = new Image(url);
-        picture.setImage(img);
+        loadImage();
         return new VBox(title, picture);
     }
 
     private void initInteraction(Stage primaryStage) {
         primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                clicked(event.getSceneX(), event.getSceneY())
+                clicked(event.getX(), event.getY())
         );
+    }
+
+    private void loadImage () {
+        try (
+                InputStream image = zadanie
+                        .class
+                        .getResourceAsStream("oselik.jpg")
+        ) {
+            Image img = new Image(image);
+            picture.setImage(img);
+
+        } catch (IOException e) {
+        }
+    }
+
+    private void loadText () {
+        try (
+                InputStream textIS = zadanie
+                        .class
+                        .getResourceAsStream("quest.txt")
+        ){
+            scannerIn = new Scanner(textIS);
+        } catch (IOException e) {
+        }
+
     }
 
     private void fillQuestions() {
@@ -63,6 +96,7 @@ public class zadanie extends Application {
         questions.add("где голова3");
         questions.add("где голова4");
     }
+
 
     private void clicked (double x, double y) {
         if (answers[questionNumber][0] <= x &&
