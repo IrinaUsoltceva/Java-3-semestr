@@ -24,7 +24,7 @@ public class Zadanie extends Application {
     private int result = 0;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("зачет");
 
         Parent root = initInterface();
@@ -37,7 +37,7 @@ public class Zadanie extends Application {
     private Parent initInterface() {
         title.setText("Где сам осленок?");
         loadImage();
-        title.setFont((Font.font(40)));
+        title.setFont(Font.font(40));
         return new VBox(title, picture);
     }
 
@@ -76,7 +76,7 @@ public class Zadanie extends Application {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //do nothing
         }
     }
 
