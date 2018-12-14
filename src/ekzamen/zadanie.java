@@ -3,6 +3,7 @@ package ekzamen;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -64,45 +65,22 @@ public class zadanie extends Application {
     }
 
     private void clicked (double x, double y) {
-        if (questionNumber != 5) {
-            if (answers[questionNumber][0] <= x &&
-                    x <= answers[questionNumber][0] + answers[questionNumber][2] &&
-                    answers[questionNumber][1] <= y &&
-                    y <= answers[questionNumber][1] + answers[questionNumber][3])
-                result++;
-            questionNumber++;
-            System.out.println(result + " " + questionNumber);
-            title.setText(questions.get(questionNumber));
-        }
-        else
-            System.out.println("конец");
+        if (answers[questionNumber][0] <= x &&
+                x <= answers[questionNumber][0] + answers[questionNumber][2] &&
+                answers[questionNumber][1] <= y &&
+                y <= answers[questionNumber][1] + answers[questionNumber][3])
+            result++;
+        System.out.println(questionNumber + " " + result);
+        questionNumber++;
 
-        /*
-        if (questionNumber == 5)
-            title.setText(questions.get(questionNumber));
-        else {
-            new Alert(Alert.AlertType.INFORMATION, "конец!" + result + "/" + questionNumber).showAndWait();
+        if (questionNumber == 5) {
+            new Alert(Alert.AlertType.INFORMATION, "Конец! Итого: " + result + "/" + questionNumber).showAndWait();
             questionNumber = 0;
             result = 0;
-            title.setText(questions.get(questionNumber));
         }
-     */
+
+        title.setText(questions.get(questionNumber));
     }
-        /*
-        идея:
-        завести массив с 4 цифрами и вопросами
-        при считывании использовать делимитер пробел? и берем 4+ элемент
-
-        [i]-тый элемент - итый вопрос
-        итый вопрос на метку, обработка события клик
-        если кликнули и соответствует итым координатам - itog + 1
-        иначе итог не меняется
-        после этого меняется общий индекс и все обновляется
-
-        таким образом, все зависит от индекса-номера вопроса
-         */
-
-
 
     /*
     пять вопросов наподобие "где у осла уши"
