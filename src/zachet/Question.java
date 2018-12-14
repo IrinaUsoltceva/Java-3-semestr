@@ -1,4 +1,4 @@
-package ekzamen;
+package zachet;
 
 public class Question {
     private int x;
