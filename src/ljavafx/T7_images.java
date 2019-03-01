@@ -69,7 +69,7 @@ public class T7_images extends Application {
     private void initInteraction() {
         //1
         //Для начала выберите какой-то фиксированный каталог с изображениями,
-        String directoryWithImages = "P:\\фотошоп";
+        String directoryWithImages = "G:\\Ира";
         File dirImagesFile = new File(directoryWithImages);
 
         //2
