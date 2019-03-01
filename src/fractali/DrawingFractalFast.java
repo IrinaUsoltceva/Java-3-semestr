@@ -27,7 +27,7 @@ public class DrawingFractalFast extends Application {
     private int sdvig = 50;
 
     private Fractal fractal = new FractalMandelbrot();
-    private Palette palette = new PaletteGrayGradient();
+    private Palette palette = new PaletteGrayGradientRecursive();
 
     private Pane root = new Pane();
     private ImageView fullImage = new ImageView(createFractalImage(WIDTH, HEIGHT));
