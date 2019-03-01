@@ -4,10 +4,7 @@ import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
+import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -31,7 +28,9 @@ public class DrawingFractal extends Application {
     private Palette palette = new PaletteGrayGradient();
 
     private Pane root = new Pane();
-    private ImageView fullImage = new ImageView(createFractalImage(WIDTH, HEIGHT));
+    private ImageView fullImage = new ImageView();
+
+    private Task<WritableImage> task = null;
 
     @Override
     public void start(Stage primaryStage) {
@@ -49,6 +48,7 @@ public class DrawingFractal extends Application {
     }
 
     private Parent initInterface() {
+        createFractalImage(WIDTH, HEIGHT);
         root.getChildren().addAll(fullImage);
         return root;
     }
@@ -92,29 +92,68 @@ public class DrawingFractal extends Application {
 
     private void updateImage() {
         if (root.getWidth() != 0 && root.getHeight() != 0)
-            fullImage.setImage(createFractalImage((int) root.getWidth(), (int) root.getHeight()));
+            createFractalImage((int) root.getWidth(), (int) root.getHeight());
     }
 
-    private Image createFractalImage(int width, int height) {
+    private void createFractalImage(int width, int height) {
+        if (task != null)
+            task.cancel();
 
-        WritableImage wiImageWithFractal = new WritableImage(width, height);
-        PixelWriter pixelWriterForImageWithFractal = wiImageWithFractal.getPixelWriter();
+        Task<WritableImage> t = new Task<WritableImage>() {
 
-        Task<WritableImage> task;
+            @Override
+            protected WritableImage call() throws Exception {
 
-        //перебрать все пиксели
-        for (int ix = 0; ix < width - 1; ix++) {
-            for (int iy = 0; iy < height - 1; iy++) {
-                double x = x0 + ix * dx;
-                double y = y0 - iy * dx;
-                double colorInd = fractal.getColor(x, y);
-                Color color = palette.getColor(colorInd);
-                pixelWriterForImageWithFractal.setColor(ix, iy, color);
+                WritableImage wiImageWithFractal = new WritableImage(width, height);
+                PixelWriter pixelWriterForImageWithFractal = wiImageWithFractal.getPixelWriter();
+
+                if (isCancelled()) return null;
+
+                for (int iy = 0; iy < height - 1; iy++){
+                    for  (int ix = 0; ix < width - 1; ix++) {
+                        double x = x0 + ix * dx;
+                        double y = y0 - iy * dx;
+                        double colorInd = fractal.getColor(x, y);
+                        Color color = palette.getColor(colorInd);
+                        pixelWriterForImageWithFractal.setColor(ix, iy, color);
+                    }
+                    updateValue(
+                            copyImage(wiImageWithFractal)
+                    );
+                }
+                return wiImageWithFractal;
             }
+        };
 
+        new Thread(t).start();
+
+        t.valueProperty().addListener(e ->
+            fullImage.setImage(t.getValue())
+        );
+
+        t.onSucceededProperty().addListener(e ->
+            task = null
+        );
+
+
+
+
+    }
+
+    private WritableImage copyImage(Image image) {
+        int height=(int)image.getHeight();
+        int width=(int)image.getWidth();
+        PixelReader pixelReader=image.getPixelReader();
+        WritableImage writableImage = new WritableImage(width,height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int y = 0; y < height; y++){
+            for (int x = 0; x < width; x++){
+                Color color = pixelReader.getColor(x, y);
+                pixelWriter.setColor(x, y, color);
+            }
         }
-
-        return wiImageWithFractal;
+        return writableImage;
     }
 
 }

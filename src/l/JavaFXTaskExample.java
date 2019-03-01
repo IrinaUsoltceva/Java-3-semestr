@@ -47,6 +47,7 @@ public class JavaFXTaskExample extends Application {
                     return primes;
                 }
             };
+
             new Thread(task).start(); //запускается как поток
 
             //task.setOnSucceeded(); - можно добавить слушатель на успешное
