@@ -1,6 +1,7 @@
 package fractali;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -86,8 +87,7 @@ public class DrawingFractal extends Application {
             dx = dx1;
         }
 
-
-       updateImage();
+        updateImage();
     }
 
     private void updateImage() {
@@ -100,6 +100,8 @@ public class DrawingFractal extends Application {
         WritableImage wiImageWithFractal = new WritableImage(width, height);
         PixelWriter pixelWriterForImageWithFractal = wiImageWithFractal.getPixelWriter();
 
+        Task<WritableImage> task;
+
         //перебрать все пиксели
         for (int ix = 0; ix < width - 1; ix++) {
             for (int iy = 0; iy < height - 1; iy++) {
@@ -111,7 +113,6 @@ public class DrawingFractal extends Application {
             }
 
         }
-
 
         return wiImageWithFractal;
     }
