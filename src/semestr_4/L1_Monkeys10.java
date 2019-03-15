@@ -1,15 +1,15 @@
 package semestr_4;
 
-public class Monkeys10 {
+public class L1_Monkeys10 {
 
     public static void main(String[] args) {
-        new Monkeys10(); //создаем одну программу про обезьянок
+        new L1_Monkeys10(); //создаем одну программу про обезьянок
     }
 
     private int bananas = 1_000_000;
     private int total = 0;
 
-    private Monkeys10() {
+    private L1_Monkeys10() {
         Object monitor = new Object();
 
         Runnable monkeyAction = () -> {

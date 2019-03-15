@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JavaFXTaskExample extends Application {
+public class L1_JavaFXTaskExample extends Application {
     private ListView<Integer> ints = new ListView<>();
 
     @Override
