@@ -1,3 +1,5 @@
+package semestr_3;
+
 public class L3_1_Files {
     /*
     В жава существует две библиотеки для IO

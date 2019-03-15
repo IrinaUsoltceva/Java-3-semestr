@@ -1,4 +1,4 @@
-package l;
+package semestr_4;
 
 public class CMonkeys {
 
@@ -8,7 +8,7 @@ public class CMonkeys {
 //    И статический должен вызывать только статический, и в итоге всё стенет статическим
 //    Но мейн обязан быть статическим, другие некоторые тоже
     public static void main(String[] args) {
-        new l.CMonkeys(); //создаём одну программу про обезъянок
+        new semestr_4.CMonkeys(); //создаём одну программу про обезъянок
     }
 
     private int bananas = 1_000_000;

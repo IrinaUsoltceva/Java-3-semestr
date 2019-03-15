@@ -1,3 +1,5 @@
+package semestr_3;
+
 public class L3_2_Files {
     public static void main(String[] args) {
         String text = "1234.txt";

@@ -99,15 +99,13 @@ public class DrawingFractal extends Application {
         if (task != null)
             task.cancel();
 
-        Task<WritableImage> t = new Task<WritableImage>() {
+         task = new Task<WritableImage>() {
 
             @Override
             protected WritableImage call() throws Exception {
 
                 WritableImage wiImageWithFractal = new WritableImage(width, height);
                 PixelWriter pixelWriterForImageWithFractal = wiImageWithFractal.getPixelWriter();
-
-                if (isCancelled()) return null;
 
                 for (int iy = 0; iy < height - 1; iy++){
                     for  (int ix = 0; ix < width - 1; ix++) {
@@ -120,22 +118,21 @@ public class DrawingFractal extends Application {
                     updateValue(
                             copyImage(wiImageWithFractal)
                     );
+                    if (isCancelled()) return null;
                 }
                 return wiImageWithFractal;
             }
         };
 
-        new Thread(t).start();
+        new Thread(task).start();
 
-        t.valueProperty().addListener(e ->
-            fullImage.setImage(t.getValue())
+        task.valueProperty().addListener(e ->
+            fullImage.setImage(task.getValue())
         );
 
-        t.onSucceededProperty().addListener(e ->
-            task = null
+        task.onSucceededProperty().addListener(e ->
+            this.task = null
         );
-
-
 
 
     }

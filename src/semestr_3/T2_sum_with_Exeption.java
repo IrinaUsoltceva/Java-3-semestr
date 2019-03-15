@@ -1,3 +1,5 @@
+package semestr_3;
+
 import java.util.Scanner;
 
 public class T2_sum_with_Exeption {

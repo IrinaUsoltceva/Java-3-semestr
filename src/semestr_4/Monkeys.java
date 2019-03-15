@@ -1,4 +1,4 @@
-package l;
+package semestr_4;
 
 public class Monkeys {
 

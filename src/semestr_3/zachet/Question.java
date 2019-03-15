@@ -1,4 +1,4 @@
-package zachet;
+package semestr_3.zachet;
 
 public class Question {
     private int x;

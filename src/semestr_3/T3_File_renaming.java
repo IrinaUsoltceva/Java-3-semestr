@@ -1,3 +1,5 @@
+package semestr_3;
+
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.Arrays;

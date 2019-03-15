@@ -1,3 +1,5 @@
+package semestr_3;
+
 public class T1_Exeption {
     public static void main(String[] args) {
         task1();
