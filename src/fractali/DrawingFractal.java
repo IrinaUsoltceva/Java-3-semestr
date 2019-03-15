@@ -2,14 +2,26 @@ package fractali;
 
 import javafx.application.Application;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static javafx.scene.input.KeyCode.*;
 
@@ -32,8 +44,13 @@ public class DrawingFractal extends Application {
 
     private Task<WritableImage> task = null;
 
+    private FileChooser fileChooser = new FileChooser();
+
+    private Stage primaryStage;
+
     @Override
     public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         primaryStage.setTitle("Фракталы");
 
         Parent root = initInterface();
@@ -64,36 +81,64 @@ public class DrawingFractal extends Application {
     }
 
     private void changePlace(KeyCode keyCode) {
-       if (keyCode == UP)
+
+       if (keyCode == UP) {
            y0 += sdvig * dx;
-       if (keyCode == DOWN)
-            y0 -= sdvig * dx;
-       if (keyCode == LEFT)
-            x0 -= sdvig * dx;
-       if (keyCode == RIGHT)
-            x0 += sdvig * dx;
+           updateImage();
+       }
+       if (keyCode == DOWN) {
+           y0 -= sdvig * dx;
+           updateImage();
+       }
+       if (keyCode == LEFT) {
+           x0 -= sdvig * dx;
+           updateImage();
+       }
+       if (keyCode == RIGHT) {
+           x0 += sdvig * dx;
+           updateImage();
+       }
 
        if (keyCode == EQUALS || keyCode == ADD) {
            double dx1 = dx / 1.5;
            x0 += root.getWidth()/2 * (dx - dx1);
            y0 -= root.getHeight()/2 * (dx - dx1);
            dx = dx1;
+           updateImage();
        }
-
         if (keyCode == MINUS || keyCode == SUBTRACT) {
             double dx1 = dx * 1.5;
             x0 += root.getWidth()/2 * (dx - dx1);
             y0 -= root.getHeight()/2 * (dx - dx1);
             dx = dx1;
+            updateImage();
         }
 
-        updateImage();
+        if (keyCode == C) {
+           saveImage();
+        }
     }
 
     private void updateImage() {
         if (root.getWidth() != 0 && root.getHeight() != 0)
             createFractalImage((int) root.getWidth(), (int) root.getHeight());
     }
+
+    private void saveImage() {
+        fileChooser.setTitle("Open Resource File");
+        File selectedFile = fileChooser.showSaveDialog(primaryStage);
+        if (selectedFile != null) {
+            File outputFile = new File(selectedFile.getPath());
+            BufferedImage bImage = SwingFXUtils.fromFXImage(fullImage.getImage(), null);
+            try {
+                ImageIO.write(bImage, "png", outputFile);
+            } catch (IOException e) {
+                System.out.println("ошибка");
+            }
+        }
+    }
+
+    private void loadPlace() {}
 
     private void createFractalImage(int width, int height) {
         if (task != null)
