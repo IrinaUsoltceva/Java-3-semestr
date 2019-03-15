@@ -2,9 +2,10 @@ package fractali;
 
 import javafx.scene.paint.Color;
 
-public class PaletteRecursiveGrayGradient implements Palette {
+public class PaletteGrayGradientReverse implements Palette {
     @Override
     public Color getColor(double ind) {
-        return Color.gray(ind);
+
+        return Color.gray((ind - 1) * (-1));
     }
 }
