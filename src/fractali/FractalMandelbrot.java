@@ -2,7 +2,7 @@ package fractali;
 
 public class FractalMandelbrot implements Fractal {
 
-    private int N = 100;
+    private int N = 500;
     private double R = 100000;
 
     //int N = 100; //TODO move to constructor
