@@ -21,15 +21,16 @@ public class FractalMandelbrot implements Fractal {
 
         int k = 0;
         for (int i = 0; i < N; i++) {
-            if (x * x + y * y < R * R) {
+            double z2 = x * x + y * y;
+            if (z2 < R * R) {
                 double x1 = x * x - y * y + p;
                 double y1 = 2 * x * y + q;
                 x = x1;
                 y = y1;
                 k++;
-            }
-            else {
-                return (double)k / N;
+            } else {
+                double fix =  Math.log(Math.log(z2) / 2 / Math.log(R)) / Math.log(2);
+                return (k - fix) / N;
             }
 
         }
