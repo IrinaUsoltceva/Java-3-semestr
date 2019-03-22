@@ -13,6 +13,10 @@ public class FactoryExample {
 
         System.out.println(cat.greet());
         System.out.println(dog.greet());
+
+        //let all cats greert
+        for (Cat c : factory.getAllCats())
+            System.out.println(c.greet());
     }
 
 }
