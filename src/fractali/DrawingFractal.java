@@ -37,7 +37,7 @@ public class DrawingFractal extends Application {
     private int sdvig = 50;
 
     private Fractal fractal = new FractalMandelbrot();
-    private Palette palette = new PaletteGrayGradient();
+    private Palette palette = new PaletteGrayGradientLittlePieces();
 
     private Pane root = new Pane();
     private ImageView fullImage = new ImageView();
