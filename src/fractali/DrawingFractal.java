@@ -37,7 +37,7 @@ public class DrawingFractal extends Application {
     private int sdvig = 50;
 
     private Fractal fractal = new FractalMandelbrot();
-    private Palette palette = new PaletteGrayGradientLittlePieces();
+    private Palette palette = new PaletteColorLittlePieces();
 
     private Pane root = new Pane();
     private ImageView fullImage = new ImageView();
@@ -144,7 +144,7 @@ public class DrawingFractal extends Application {
         if (task != null)
             task.cancel();
 
-         task = new Task<WritableImage>() {
+        task = new Task<WritableImage>() {
 
             @Override
             protected WritableImage call() throws Exception {
