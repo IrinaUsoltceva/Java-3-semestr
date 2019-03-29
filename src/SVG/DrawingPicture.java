@@ -1,38 +1,19 @@
 package SVG;
 
-import javafx.application.Application;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+public class DrawingPicture {
+    public static void main(String[] args) {
+        Tag rect1 = new Tag("rect");
+        rect1.set("x", "50");
+        rect1.set("y", "50");
+        rect1.set("width", "100");
+        rect1.set("height", "200");
+        rect1.set("style", "stroke:#ff0000; fill: #0000ff");
 
-public class DrawingPicture extends Application {
-
-    private Pane root = new Pane();
-
-
-
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Картинка");
-
-        Parent root = initInterface();
-        primaryStage.setScene(new Scene(root, 400, 400));
-
-        initInteraction();
-        primaryStage.show();
-
-
+        SVG svg = new SVG("a.svg", 300, 300);
+        svg.addTag(rect1);
+        svg.addTag(rect1);
     }
 
-    private Parent initInterface() {
-        root.getChildren().addAll();
-        return root;
-    }
-
-    private void initInteraction() {
-
-    }
 
 
 
