@@ -1,21 +1,25 @@
 package SVG;
 
+import java.util.Random;
+
 public class DrawingPicture {
     public static void main(String[] args) {
-        try (SVG svg = new SVG("a.svg", 300, 300)) {
+        try (SVG svg = new SVG("a.svg",
+                                Settings.getInstance().getWidth(),
+                                Settings.getInstance().getHeight())) {
 
-            SmallSquare sq = new SmallSquare();
-            RedCircle rc = new RedCircle();
+            Random random = new Random();
 
-            PositionedShape ps1 = new PositionedShape(sq, 100, 100);
-            PositionedShape ps2 = new PositionedShape(sq, 200, 200);
-            PositionedShape ps3 = new PositionedShape(rc, 100, 200);
-            PositionedShape ps4 = new PositionedShape(rc, 200, 100);
+            for (int i = 0; i < 100; i++) {
+                PositionedShape f = new PositionedShape(new SmallSquare(), random.nextInt(400), random.nextInt(400));
+                f.draw(svg);
+            }
 
-            ps1.draw(svg);
-            ps2.draw(svg);
-            ps3.draw(svg);
-            ps4.draw(svg);
+            for (int i = 0; i < 150; i++) {
+                PositionedShape f = new PositionedShape(new RedCircle(), random.nextInt(400), random.nextInt(400));
+                f.draw(svg);
+            }
+
 
         } catch (Exception e) {
             System.out.println("ошибка записи");

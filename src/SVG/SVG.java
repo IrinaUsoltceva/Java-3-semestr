@@ -12,6 +12,13 @@ public class SVG implements AutoCloseable {
                 "width=\"" + width + "\" " +
                 "height=\"" + height + "\"> ";
         fileOut.println(fileSvoistva);
+
+        Tag background = new Tag("rect");
+        background.set("width", String.valueOf(width));
+        background.set("height", String.valueOf(height));
+        background.set("fill", Settings.getInstance().getBackground());
+
+        addTag(background);
     }
 
     public void addTag(Tag tag) {
