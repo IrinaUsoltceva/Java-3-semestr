@@ -22,6 +22,7 @@ public class Settings {
         return instance;
     }
 
+    //сделать обработку ошибок
     public int getWidth() {
         return Integer.parseInt(p.getProperty("width"));
     }
