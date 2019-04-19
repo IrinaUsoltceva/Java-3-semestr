@@ -2,12 +2,13 @@ package SVG;
 
 import java.util.List;
 
-public class Shape {
-    public Shape() {
+public interface Shape {
 
+    List<Tag> getTags();
+
+    default void draw(SVG svg) {
+        for (Tag tag : getTags()) {
+            svg.addTag(tag);
+        }
     }
-
-    /*public List<Tag> getTags() {
-
-    }*/
 }

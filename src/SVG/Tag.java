@@ -5,10 +5,19 @@ import java.util.Map;
 
 public class Tag {
     private Map<String, String> m = new HashMap<>();
-    private String figureName;
+    private String tagName;
+    private TagType tagType;
 
-    public Tag(String figureName) {
-        this.figureName = figureName;
+    public Tag(String tagName) {
+        this(tagName, TagType.OPEN_AND_CLOSE); //вызывает конструктор тот, что ниже, передавая вот эти элементы
+                                               //аналогично тому, что ниже двумя строками
+//        this.tagName = tagName;
+//        tagType = TagType.OPEN_AND_CLOSE;
+    }
+
+    public Tag(String tagName, TagType tagType) {
+        this.tagName = tagName;
+        this.tagType = tagType;
     }
 
     public void set(String key, String value) {
@@ -19,18 +28,11 @@ public class Tag {
         return m;
     }
 
-    public String getFigureName() {
-        return figureName;
+    public String getTagName() {
+        return tagName;
     }
 
-    /*2. Класс Tag - это описание одного тега
-
-    ```
-        Tag rect1 = new Tag("rect");
-        rect1.set("x", "200");
-        rect1.set("y", "200");
-        rect1.set("width", "10");
-        rect1.set("height", "20");
-        rect1.set("style", "stroke:#ff0000; fill: #0000ff");
-    ```*/
+    public TagType getTagType() {
+        return tagType;
+    }
 }

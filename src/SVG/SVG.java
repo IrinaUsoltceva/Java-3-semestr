@@ -15,26 +15,27 @@ public class SVG implements AutoCloseable {
     }
 
     public void addTag(Tag tag) {
-        fileOut.print("<" + tag.getFigureName() + " ");
-        tag.getM().forEach((key, value) -> fileOut.print(key + "=\"" + value + "\" "));
-        fileOut.println("/>");
+        if (tag.getTagType().equals(TagType.OPEN)) {
+            printTag(tag, "<", ">");
+            return;
+        }
+        if (tag.getTagType().equals(TagType.OPEN_AND_CLOSE)) {
+            printTag(tag, "<", "/>");
+            return;
+        }
+        if (tag.getTagType().equals(TagType.CLOSE)) {
+            printTag(tag, "</", ">");
+        }
+    }
+
+    private void printTag(Tag tag, String s, String s2) {
+        fileOut.print(s + tag.getTagName());
+        tag.getM().forEach((key, value) -> fileOut.print(" " + key + "=\"" + value + "\""));
+        fileOut.println(s2);
     }
 
     public void close() throws Exception {
         fileOut.println("</svg>");
         fileOut.close();
     }
-
-    /*1. Класс SVG, содержит открытый PrintStream для печати SVG:
-    ```
-        SVG svg = new SVG("a.svg", 300, 300);
-        svg.addTag(rect1);
-        svg.addTag(rect2);
-        svg.close();
-    ```
-    В конце обязательно будет вызвано закрытие, чтобы закрыть PrintStream
-    PrintStream - класс, который позволяет удобно печатать файл
-    * */
-
-
 }
