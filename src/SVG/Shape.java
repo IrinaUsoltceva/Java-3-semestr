@@ -7,7 +7,7 @@ public class Shape {
 
     }
 
-    public List<Tag> getTags() {
+    /*public List<Tag> getTags() {
 
-    }
+    }*/
 }

@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class Tag {
     private Map<String, String> m = new HashMap<>();
-    private String type;
+    private String figureName;
 
-    public Tag(String type) {
-        this.type = type;
+    public Tag(String figureName) {
+        this.figureName = figureName;
     }
 
     public void set(String key, String value) {
@@ -19,8 +19,8 @@ public class Tag {
         return m;
     }
 
-    public String getType() {
-        return type;
+    public String getFigureName() {
+        return figureName;
     }
 
     /*2. Класс Tag - это описание одного тега

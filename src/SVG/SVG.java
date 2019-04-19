@@ -15,7 +15,7 @@ public class SVG implements AutoCloseable {
     }
 
     public void addTag(Tag tag) {
-        fileOut.print("<" + tag.getType() + " ");
+        fileOut.print("<" + tag.getFigureName() + " ");
         tag.getM().forEach((key, value) -> fileOut.print(key + "=\"" + value + "\" "));
         fileOut.println("/>");
     }
