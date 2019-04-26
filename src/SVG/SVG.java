@@ -1,5 +1,7 @@
 package SVG;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.PrintStream;
 
 public class SVG implements AutoCloseable {
@@ -7,7 +9,9 @@ public class SVG implements AutoCloseable {
     private PrintStream fileOut;
 
     public SVG(String svgName, int width, int height) throws Exception {
-        fileOut = new PrintStream(svgName, "UTF-8");
+        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(svgName));
+        fileOut = new PrintStream(outputStream, false, "UTF-8");
+
         String fileSvoistva = "<svg  xmlns=\"http://www.w3.org/2000/svg\" " +
                 "width=\"" + width + "\" " +
                 "height=\"" + height + "\"> ";
@@ -19,19 +23,19 @@ public class SVG implements AutoCloseable {
         background.set("fill", Settings.getInstance().getBackground());
 
         addTag(background);
+        fileOut.flush();
     }
 
     public void addTag(Tag tag) {
-        if (tag.getTagType().equals(TagType.OPEN)) {
-            printTag(tag, "<", ">");
-            return;
-        }
-        if (tag.getTagType().equals(TagType.OPEN_AND_CLOSE)) {
-            printTag(tag, "<", "/>");
-            return;
-        }
-        if (tag.getTagType().equals(TagType.CLOSE)) {
-            printTag(tag, "</", ">");
+        switch (tag.getTagType()) {
+            case OPEN:
+                printTag(tag, "<", ">");
+                return;
+            case OPEN_AND_CLOSE:
+                printTag(tag, "<", "/>");
+                return;
+            case CLOSE:
+                printTag(tag, "</", ">");
         }
     }
 
