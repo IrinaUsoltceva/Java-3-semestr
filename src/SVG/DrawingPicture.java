@@ -12,10 +12,12 @@ public class DrawingPicture {
 
             for (int i = 0; i < 1000; i++) {
                 PositionedShape f = new PositionedShape(new SmallSquare(), random.nextInt(400), random.nextInt(400));
+                PositionedShape f2 = new PositionedShape(new RedCircle(), random.nextInt(400), random.nextInt(400));
+                f2.draw(svg);
                 f.draw(svg);
             }
 
-            for (int i = 0; i < 1500; i++) {
+            for (int i = 0; i < 500; i++) {
                 PositionedShape f = new PositionedShape(new RedCircle(), random.nextInt(400), random.nextInt(400));
                 f.draw(svg);
             }

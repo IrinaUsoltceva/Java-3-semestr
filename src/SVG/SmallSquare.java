@@ -5,10 +5,9 @@ import java.util.List;
 
 public class SmallSquare implements Shape {
 
+    @Override
+    public List<Tag> getTags() {
 
-    private List<Tag> tagList;
-
-    public SmallSquare() {
         Tag rect = new Tag("rect");
         rect.set("x", "-10");
         rect.set("y", "-10");
@@ -18,11 +17,6 @@ public class SmallSquare implements Shape {
         rect.set("stroke", "#004cff");
         rect.set("stroke-width", "2");
 
-        tagList = Collections.singletonList(rect);
-    }
-
-    @Override
-    public List<Tag> getTags() {
-        return tagList;
+        return Collections.singletonList(rect);
     }
 }

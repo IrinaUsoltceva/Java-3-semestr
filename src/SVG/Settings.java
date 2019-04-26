@@ -52,4 +52,8 @@ public class Settings {
     public Random getRandomGenerator() {
         return random;
     }
+
+    public String getShapeDescription(String figureName) {
+        return p.getProperty("shape." + figureName);
+    }
 }
