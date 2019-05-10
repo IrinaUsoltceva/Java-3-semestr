@@ -1,11 +1,10 @@
 package SVG;
 
-import java.util.List;
-
 public class ShapeFactory {
 
-    public Shape create (String figureName) {
-        Shape shape = new RedCircle();
-
+    public Shape create (String figureName) throws Exception {
+        Class<?> clas = Class.forName(figureName);
+        Shape shape = (Shape) clas.newInstance();
+        return shape;
     }
 }
