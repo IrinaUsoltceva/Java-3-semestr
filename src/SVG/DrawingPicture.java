@@ -5,6 +5,10 @@ import java.util.Random;
 
 public class DrawingPicture {
     public static void main(String[] args) {
+        drawFromSettings();
+    }
+
+    public static String drawFromSettings() {
         try (SVG svg = new SVG("a.svg",
                 Settings.getInstance().getWidth(),
                 Settings.getInstance().getHeight())
@@ -40,5 +44,7 @@ public class DrawingPicture {
             System.out.println("ошибка записи");
         }
 
+
+        return "nothing there";
     }
 }
