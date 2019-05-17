@@ -1,5 +1,3 @@
-package semestr_4.tests;
-
 public class T2_TestTask {
 
     /*
